@@ -1,18 +1,27 @@
+import datetime
+
 class Event:
     def __init__(self, title, date, description):
-
-    def __str__(self):
-
+        self.title = title
+        self.date = date
+        self.description = description
 
 class Agenda:
     def __init__(self):
-
+        self.temporary_db = {}
 
     def add_event(self, title, date, description):
-
+        new_event = Event(title=title, date=date, description=description)
+        self.temporary_db[new_event.title] = [date, description]
+        
     def remove_event(self, title):
+        if title in self.temporary_db.keys():
+            self.temporary_db.pop(title, None)
 
     def list_events(self):
+        for title, details in self.temporary_db.items():
+            date, description = details
+            print(f"Title: {title}, Date: {date}, Description: {description}")
 
 
 if __name__ == "__main__":
@@ -40,8 +49,25 @@ if __name__ == "__main__":
         choice = input("Enter your choice: ")
 
         if choice == "1":
+            title = input("Enter your Event Title: ")
+
+            year  = input("Enter Event Year: ")
+            month = input("Enter Event Month: ")
+            day   = input("Enter Event Day: ")
+            date  = datetime.datetime(int(year), int(month), int(day))
+
+            desc  = input("Enter Event Description: ")
+            
+
+            agenda.add_event(title=title, date=date, description=desc)
+
         elif choice == "2":
+            title = input("Enter your Event Title: ")
+            agenda.remove_event(title=title)
+
         elif choice == "3":
+            agenda.list_events()
+
         elif choice == "4":
             break
         else:
